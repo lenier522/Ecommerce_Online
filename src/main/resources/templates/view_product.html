@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{base::layout(~{::section})}">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <section>
+            <div class="container shadow p-3 mb-5 bg-body-tertiary rounded" style="margin-top: 70px; margin-bottom: 100px">
+                <div class="col-md-12 p-5">
+                    <div class="row">
+
+                        <th:block th:if= "${session.succMsg}">
+                            <p class="text-success fw-bold alert alert-success text-center" role="alert">[[${session.succMsg}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+
+                        </th:block>
+
+                        <th:block th:if= "${session.errorMsg}">
+                            <p class="text-danger fw-bold alert alert-danger text-center" role="alert">[[${session.errorMsg}]]</p>
+                            <th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+
+                        </th:block>
+
+                        <div class="col-md-6 text-end">
+                            <img th:src="@{'/img/product/' + ${product.image}}" alt="" width="330px" height="400px"/>
+                        </div>
+
+                        <div class="col-md-6">
+                            <p class="fs-3">[[${product.title}]]</p>
+
+                            <p>
+                                <span class="fw-bold">Descripcion: </span> <br>[[${product.description}]]
+                            </p>
+
+                            <p>
+                                <span class="fw-bold">Detalles del Producto: </span>
+                                <br>Estado:
+                            <th:block th:if="${product.stock>0}">
+                                <span class="badge bg-success">Activo</span>
+                            </th:block>
+
+                            <th:block th:unless="${product.stock>0}">
+                                <span class="badge bg-warning">Agotado</span>
+                            </th:block>
+
+                            <br>Categoria: [[${product.category}]]<br> Entrega : 72 Horas Remplazar y Rechazar
+                            </p>
+
+                            <p class="fs-5 fw-bold">
+                                Precio : $
+                                [[${product.discountPrice}]] <span class="fs-6 text-decoration-line-through text-secondary">[[${product.price}]]</span>
+                                <span class="fs-6 text-success">[[${product.discount}]]% Off</span>
+
+                            </p>
+
+                            <div class="row">
+                                <div class="col-md-4 text-success text-center p-2">
+                                    <i class="fas fa-money-bill-wave fa-2x"></i>
+                                    <p>Efectivo con Delivery</p>
+                                </div>
+
+                                <div class="col-md-4 text-danger text-center p-2">
+                                    <i class="fas fa-undo-alt fa-2x"></i>
+                                    <p>Retornar Compra</p>
+                                </div>
+
+                                <div class="col-md-4 text-primary text-center p-2">
+                                    <i class="fas fa-truck-moving fa-2x"></i>
+                                    <p>Compra Gratis</p>
+                                </div>
+                            </div>
+
+                            <th:block th:if="${product.stock>0}">
+                                <th:block th:if="${user==null}">
+                                    <a href="/signin" class="btn btn-danger col-md-12">Agregar al carrito</a>
+                                </th:block>
+
+                            </th:block>
+                            <th:block th:unless="${product.stock>0}">
+                                <a href="#" class="btn text-white btn-warning col-md-12">Producto Agotado</a>
+                            </th:block>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

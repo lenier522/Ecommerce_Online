@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{base::layout(~{::section})}">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <section>
+            <div class="container-fluid mt-4 p-3">
+                <div class="row">
+                    <p class="text-center fs-3 mt-5">Todos los Productos</p>
+                    <hr>
+                    <a href="/admin/" class="text-decoration-none"><i
+                            class="fa-solid fa-arrow-left"></i> Back</a>
+                    <th:block th:if="${session.succMsg}">
+                        <p class="text-success fw-bold">[[${session.succMsg}]]</p>
+                        <th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <th:block th:if="${session.errorMsg}">
+                        <p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+                        <th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+                    </th:block>
+
+                    <th:block th:if="${session.errorMsg}">
+                        <p class="text-danger fw-bold text-center">[[${session.errorMsg}]]</p>
+                        <th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+                    </th:block>
+                    <div class="col-md-4 p-3">
+
+                        <form action="/admin/products" method="get">
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" class="form-control " name="ch">
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-primary col">Buscar</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="p-3">
+                        <table class="table table-bordered shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <thead class="table-light ">
+                                <tr>
+                                    <th scope="col">Si No</th>
+                                    <th scope="col">Imagen</th>
+                                    <th scope="col">Titulo</th>
+                                    <th scope="col">Categoria</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Descuento</th>
+                                    <th scope="col">Precio Descuento</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="p,c:${products}">
+                                    <th scope="row">[[${c.count}]]</th>
+                                    <td><img th:src="@{'/img/product/'+${p.image}}" width="70px" height="70px"></td>
+                                    <td>[[${p.title}]]</td>
+                                    <td>[[${p.category}]]</td>
+                                    <td>[[${p.price}]]</td>
+                                    <td>[[${p.discount}]]</td>
+                                    <td>[[${p.discountPrice}]]</td>
+                                    <td>[[${p.isActive}]]</td>
+                                    <td>[[${p.stock}]]</td>
+                                    <td>
+                                        <a th:href="@{'/admin/editProduct/'+${p.id}}" class="btn btn-sm btn-primary"><i class="fa-solid fa-pen-to-square fa-1x"></i>Editar</a>
+                                        <a th:href="@{'/admin/deleteProduct/'+${p.id}}" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash fa-1x"></i>Eliminar</a>
+                                    </td>
+                                </tr>  
+                            </tbody>
+                        </table>
+                        <!-- Start Pagination -->
+                        <div class="row">
+                            <div class="col-md-4">Total de Productos: [[${totalElements}]]</div>
+                            <div class="col-md-6"> 
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" th:classappend="${isFirst} ? 'disabled':''"
+                                               th:href="@{'/admin/produtcs?pageNo='+${pageNo-1}}">Anterior</a></li>
+                                        <li th:each="i:${#numbers.sequence(1,totalPages)}" class="page-item"
+                                            th:classappend="${pageNo+1==i}?'active':''">
+                                            <a class="page-link" th:href="@{'/admin/products?pageNo='+${i-1}}">[[${i}]]</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" th:classappend="${isLast} ? 'disabled':''" th:href="@{'/admin/products?pageNo='+${pageNo+1}}">Siguiente</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

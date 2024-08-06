@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base::layout(~{::section})}">
+    <head>
+        <meta charset="UTF-8">
+        <title>Insert title here</title>
+    </head>
+    <body>
+        <section>
+
+            <div class="container mt-5 p-5">
+                <form action="/user/save-order" method="post" id="orders" novalidate>
+                    <div class="row">
+
+                        <div class="col-md-6">
+
+
+                            <div class="mb-3 row">
+                                <p class="text-center fs-4">Dirección de Envio</p>
+                                <hr>
+                                <div class="col p-1">
+                                    <label>Nombre</label> <input type="text" name="firstName" required
+                                                                     class="form-control mt-1">
+                                </div>
+                                <div class="col p-1">
+                                    <label>Apellido</label> <input type="text" name="lastName" required
+                                                                    class="form-control mt-1">
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <div class="col p-1">
+                                    <label>Email</label> <input type="email" name="email" required
+                                                                class="form-control col">
+                                </div>
+                                <div class="col p-1">
+                                    <label>Número de teléfono móvil</label> <input type="text" name="mobileNo" required
+                                                                                   class="form-control col ms-2" placeholder="Ej: +5351810305">
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <div class="col p-1">
+                                    <label>Direccion</label> <input type="text" name="address" required
+                                                                  class="form-control col">
+                                </div>
+                                <div class="col p-1">
+                                    <label>Municipio</label> <select  name="city" required
+                                                               class="form-control col ms-2">
+                                        
+                                        <option>--select--</option>
+                                            <option value="Plaza">Plaza de la Revolución</option>
+                                            <option value="Vieja">Habana Vieja</option>
+                                            <option value="Centro">Centro Habana</option>
+                                            <option value="Octubre">Diez de Octubre</option>
+                                            <option value="Cerro">Cerro</option>
+                                            <option value="Arroyo">Arroyo Naranjo</option>
+                                            <option value="Boyeros">Boyeros</option>
+                                            <option value="Playa">Playa</option>
+                                            <option value="Marianao">Marianao</option>
+                                            <option value="Lisa">La Lisa</option>
+                                            <option value="Guanabacoa">Guanabacoa</option>
+                                            <option value="Regla">Regla</option>
+                                            <option value="Este">Habana del Este</option>
+                                            <option value="Padron">San Miguel del Padrón</option>
+                                            <option value="Cotorro">Cotorro</option>
+                                        
+                                    </select>
+                                </div>
+                                  
+                                
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col p-1">
+                                    <label>Estado</label> <input type="text" name="state" required
+                                                                class="form-control col">
+                                </div>
+                                <div class="col p-1">
+                                    <label>Codigo Postal</label> <input type="number" name="pincode" required
+                                                                  class="form-control col ms-2">
+                                </div>
+                            </div>
+                            <!-- </form> -->
+
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-center fs-4">Tipo de Pago</p>
+                            <hr>
+                            <div class="card">
+                                <div class="card-body">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr>
+                                                <td>Precio Total</td>
+                                                <td>:</td>
+                                                <td>&#36; [[${orderPrice}]]</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gastos de envío</td>
+                                                <td>:</td>
+                                                <td>&#36; 550</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Impuesto</td>
+                                                <td>:</td>
+                                                <td>&#36; 100</td>
+                                            </tr>
+
+                                            <tr class="border-top">
+                                                <td>Precio Total</td>
+                                                <td>:</td>
+                                                <td>&#36; [[${totalOrderPrice}]]</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="card shadow p-3 mb-5 mt-2 bg-body-tertiary rounded">
+
+                                <div class="card-body">
+                                    <!-- <form action="/login" method="post"> -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Selecciona el tipo de Pago</label> <select required
+                                                                                                      name="paymentType" class="form-control">
+                                            <option value="">--select--</option>
+                                            <option value="DELIVERY">Pago contra Rembolso</option>
+                                           <!-- <option value="ONLINE">Pago en Linea</option> -->
+                                        </select>
+
+                                    </div>
+
+                                    <button class="btn bg-primary text-white col-md-12">Realizar Pedido</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </section>
+    </body>
+</html>
