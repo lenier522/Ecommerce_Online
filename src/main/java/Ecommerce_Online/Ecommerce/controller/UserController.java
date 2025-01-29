@@ -28,6 +28,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+/*
+*
+*@autor Lenier
+*
+*/
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
